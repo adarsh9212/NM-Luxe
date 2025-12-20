@@ -130,27 +130,36 @@ footer{
 <footer>
 © 2025 ANM LUXE. All Rights Reserved.
 </footer>
-
 <script>
 const SHEET_ID="1_RWrAdQHNDp6FqflWlYFlfaFFyWOc-jshCnL26siaaE";
 const URL=`https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
+const WHATSAPP_NUMBER="919315692388";
 
 fetch(URL)
 .then(res=>res.json())
 .then(data=>{
   const p=document.getElementById("products");
   data.forEach(item=>{
+    const msg = `Hi ANM LUXE, I want to buy ${item.NAME} priced at ₹${item.PRICE}`;
+    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
     p.innerHTML+=`
     <div class="card">
       <img src="${item.IMAGE}">
       <div class="card-content">
         <h3>${item.NAME}</h3>
         <div class="price">₹${item.PRICE}</div>
-        <button class="buy gold" onclick="window.open('${item.STRIPE}','_blank')">
-          Buy with Card
+
+        <button class="buy gold" onclick="window.open('${waLink}','_blank')">
+          Buy on WhatsApp
         </button>
+
+        <button class="buy" onclick="window.open('${item.STRIPE}','_blank')">
+          Pay with Card
+        </button>
+
         <button class="buy" onclick="window.open('${item.PAYPAL}','_blank')">
-          Buy with PayPal
+          Pay with PayPal
         </button>
       </div>
     </div>`;
