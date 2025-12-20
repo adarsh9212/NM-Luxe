@@ -1,84 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ANM LUXE – Premium Clothing & Shoes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>ANM LUXE | Premium Clothing & Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body { margin:0; font-family: Arial, sans-serif; background:#f5f5f5; }
-    header { background:black; color:white; padding:25px; text-align:center; }
-    header h1 { margin:0; letter-spacing:2px; }
-    .products {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-      padding:30px;
-    }
-    .card {
-      background:white;
-      padding:15px;
-      border-radius:10px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
-      text-align:center;
-    }
-    .card img {
-      width:100%;
-      height:200px;
-      object-fit:cover;
-      border-radius:8px;
-    }
-    button {
-      width:100%;
-      padding:10px;
-      margin-top:8px;
-      border:none;
-      background:black;
-      color:white;
-      cursor:pointer;
-      border-radius:5px;
-    }
-    button:hover { background:#333; }
-    footer { text-align:center; padding:20px; color:#777; }
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f6f6f6;
+  color:#111;
+}
+header{
+  background:linear-gradient(to right,#000,#111);
+  color:#fff;
+  padding:60px 20px;
+  text-align:center;
+}
+header h1{
+  font-size:48px;
+  letter-spacing:4px;
+  margin:0;
+}
+header p{
+  font-size:18px;
+  opacity:.9;
+}
+.hero-btn{
+  margin-top:25px;
+  padding:14px 35px;
+  background:#c9a44c;
+  border:none;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  border-radius:30px;
+}
+.hero-btn:hover{opacity:.85}
+
+.trust{
+  display:flex;
+  justify-content:space-around;
+  background:#fff;
+  padding:20px;
+  font-size:14px;
+}
+.trust div{font-weight:500}
+
+.products{
+  padding:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:#fff;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  overflow:hidden;
+  transition:.3s;
+}
+.card:hover{transform:translateY(-6px)}
+
+.card img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:20px;
+  text-align:center;
+}
+.card-content h3{
+  margin:10px 0;
+}
+.price{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:15px;
+}
+
+.buy{
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.buy.gold{background:#c9a44c;color:#000}
+.buy:hover{opacity:.85}
+
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:14px;
+  color:#777;
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>ANM LUXE</h1>
-  <p>Premium Clothing & Shoes</p>
+  <p>Premium Fashion for Modern India</p>
+  <button class="hero-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+    Shop Now
+  </button>
 </header>
+
+<section class="trust">
+  <div>🚚 Fast Delivery</div>
+  <div>🔁 Easy Returns</div>
+  <div>💎 Premium Quality</div>
+  <div>💳 Secure Payments</div>
+</section>
 
 <section class="products" id="products"></section>
 
-<footer>© 2025 ANM LUXE. All Rights Reserved.</footer>
+<footer>
+© 2025 ANM LUXE. All Rights Reserved.
+</footer>
 
 <script>
-  const SHEET_ID = "1_RWrAdQHNDp6FqflWlYFlfaFFyWOc-jshCnL26siaaE";
-  const URL = `https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
+const SHEET_ID="1_RWrAdQHNDp6FqflWlYFlfaFFyWOc-jshCnL26siaaE";
+const URL=`https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
 
-  fetch(URL)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("products");
-      data.forEach(item => {
-        container.innerHTML += `
-          <div class="card">
-            <img src="${item.IMAGE}" />
-            <h3>${item.NAME}</h3>
-            <p>₹${item.PRICE}</p>
-            <button onclick="window.open('${item.PAYPAL}','_blank')">
-              Pay with PayPal
-            </button>
-            <button onclick="window.open('${item.STRIPE}','_blank')">
-              Pay with Card (Stripe)
-            </button>
-          </div>
-        `;
-      });
-    });
+fetch(URL)
+.then(res=>res.json())
+.then(data=>{
+  const p=document.getElementById("products");
+  data.forEach(item=>{
+    p.innerHTML+=`
+    <div class="card">
+      <img src="${item.IMAGE}">
+      <div class="card-content">
+        <h3>${item.NAME}</h3>
+        <div class="price">₹${item.PRICE}</div>
+        <button class="buy gold" onclick="window.open('${item.STRIPE}','_blank')">
+          Buy with Card
+        </button>
+        <button class="buy" onclick="window.open('${item.PAYPAL}','_blank')">
+          Buy with PayPal
+        </button>
+      </div>
+    </div>`;
+  });
+});
 </script>
 
 </body>
 </html>
+
